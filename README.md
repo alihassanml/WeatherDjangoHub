@@ -74,7 +74,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 ## Contact
 
-Ali Hassan - [@yourtwitterhandle](https://twitter.com/alihassanml) - your-email@example.com
+Ali Hassan - [@yourtwitterhandle](https://twitter.com/alihassanml) - alihassanbscs99@gmail.com
 
 Project Link: [https://github.com/alihassanml/WeatherDjangoHub](https://github.com/alihassanml/WeatherDjangoHub)
 
