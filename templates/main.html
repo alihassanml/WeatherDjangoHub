@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocation Example</title>
+    <script>
+        function askForLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(showPosition, showError);
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function showPosition(position) {
+            const latitude = position.coords.latitude;
+            const longitude = position.coords.longitude;
+            getCityName(latitude, longitude);
+        }
+
+        function showError(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                    alert("User denied the request for Geolocation.");
+                    break;
+                case error.POSITION_UNAVAILABLE:
+                    alert("Location information is unavailable.");
+                    break;
+                case error.TIMEOUT:
+                    alert("The request to get user location timed out.");
+                    break;
+                case error.UNKNOWN_ERROR:
+                    alert("An unknown error occurred.");
+                    break;
+            }
+        }
+
+        async function getCityName(latitude, longitude) {
+            const apiKey = '1516534c649a4b208f9ad1c313672531'; // Replace with your OpenCage API key
+            const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude}+${longitude}&key=${apiKey}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+
+                if (data.status.code === 200 && data.results.length > 0) {
+                    const components = data.results[0].components;
+                    const city = components.city || components.town || components.village || components.hamlet || 'City not found';
+                    const country = components.country || 'Country not found';
+                    alert(`Location: ${city}, ${country}`);
+                } else {
+                    alert(`Geocode was not successful: ${data.status.message}`);
+                }
+            } catch (error) {
+                alert(`Error with the Geocoding API: ${error}`);
+            }
+        }
+
+        window.onload = askForLocation;
+    </script>
+</head>
+<body>
+    <h1>Geolocation Example</h1>
+</body>
+</html> 
+
